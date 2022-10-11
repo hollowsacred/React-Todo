@@ -1,14 +1,14 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { TodosDispatch } from "../../App";
 
 import "./AddItemPanel.scss";
 
 interface AddItemPanelProps {
-  addTodoItem: (todoText: any) => void;
 }
 
-const AddItemPanel: React.FC<AddItemPanelProps> = ({ addTodoItem }) => {
+const AddItemPanel: React.FC<AddItemPanelProps> = () => {
   const textRef = useRef<HTMLInputElement | null>(null);
-  
+  const dispatch = useContext(TodosDispatch);
   return (
     <form
       className="form-add-panel"
@@ -18,7 +18,8 @@ const AddItemPanel: React.FC<AddItemPanelProps> = ({ addTodoItem }) => {
       <input type="text" placeholder="write something......." ref={textRef} />
       <button
         onClick={() => {
-          addTodoItem(textRef.current?.value);
+          // addTodoItem(textRef.current?.value);
+          dispatch({type:"add", text:textRef.current?.value});
           textRef.current!.value = "";
         }}
       >

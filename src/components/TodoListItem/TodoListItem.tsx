@@ -1,17 +1,17 @@
 
+import { useContext } from "react";
+import { TodosDispatch } from "../../App";
 import { TypeTodo } from "../TodoList/TodoList";
 import "./TodoListItem.scss";
 interface ITodoListItemProps {
   item: TypeTodo;
-  setIsDoneHandler: (id: number) => void;
-  deleteTodoItemWithIndex: (id: number) => void;
 }
 
 const TodoListItem: React.FC<ITodoListItemProps> = ({
   item,
-  setIsDoneHandler,
-  deleteTodoItemWithIndex,
 }) => {
+    const dispatch = useContext(TodosDispatch);
+
   let className = "todolist__item";
 
   if (item.isDone) {
@@ -23,7 +23,8 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
       <li className={className}>
         <div
           onClick={() => {
-            setIsDoneHandler(item.id);
+            // setIsDoneHandler(item.id);
+            dispatch({type:'setDone', id:item.id});
           }}
           className={'todolist__item-text'}
         >
@@ -34,7 +35,8 @@ const TodoListItem: React.FC<ITodoListItemProps> = ({
         <div
           className="todolist__item-delete"
           onClick={() => {
-            deleteTodoItemWithIndex(item.id);
+            // deleteTodoItemWithIndex(item.id);
+            dispatch({type:'remove', id:item.id})
           }}
         >
           X

@@ -8,20 +8,16 @@ export type TypeTodo = {
 
 interface ITodoListProps {
   todos: TypeTodo[];
-  deleteTodoItemWithIndex: (id: number) => void;
-  setIsDoneHandler: (id: number) => void; 
 }
 
 
 const TodoList: React.FC<ITodoListProps> = ({
   todos,
-  deleteTodoItemWithIndex,
-  setIsDoneHandler
 }) => {
   return (
     <ul className="todolist">
       {todos.map((item) => (
-        <TodoListItem key={item.id} item={item} setIsDoneHandler={setIsDoneHandler} deleteTodoItemWithIndex={deleteTodoItemWithIndex}/>
+        <TodoListItem key={item.id} item={item}/>
 
       ))}
     </ul>

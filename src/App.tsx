@@ -1,76 +1,40 @@
-import React, { useState } from "react";
+import React, { createContext, useReducer, useState } from "react";
 import "./app.scss";
 import TodoList from "./components/TodoList/TodoList";
 import FilterItems from "./components/FilterItems/FilterItems";
 import AddItemPanel from "./components/AddItemPanel/AddItemPanel";
 import Header from "./components/Header/Header";
+import { reducer } from "./hook/reducer";
+import { useFilter } from "./hook/useFilter";
 
 const data = [
   { text: "32423", isDone: false, id: 1 },
   { text: "sdfsdf", isDone: false, id: 2 },
   { text: "kkkkkkk", isDone: false, id: 3 },
 ];
+
+export const TodosDispatch = createContext<any>(null);
+
 function App() {
-  const [todos, setTodos] = useState(() => data);
-  const [filter, setFilter] = useState("all");
-
-  const filterTodos = () => {
-    if (filter === "isdone") {
-      console.log("фильтрованный");
-      return todos.filter((todo) => todo.isDone);
-    }
-    return todos;
-  };
-
-  const onFilterSelect = (filter: string) => {
-      setFilter(filter);
-  };
-
-  const filteredTodos = filterTodos();
-
-  const addTodoItem = (todoText: string) => {
-    if (!todoText) {
-      return;
-    }
-    setTodos((prev) => [
-      ...prev,
-      { text: todoText, isDone: false, id: Date.now() },
-    ]);
-  };
-
-  const deleteTodoItemWithIndex = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const setIsDoneHandler = (id: number) => {
-    const changedTodo = todos.find((todo) => todo.id === id);
-    const changedTodoIndex = todos.findIndex((todo) => todo.id === id);
-    changedTodo!.isDone = !changedTodo!.isDone;
-
-    setTodos((prev) => {
-      return [
-        ...prev.slice(0, changedTodoIndex),
-        changedTodo!,
-        ...prev.slice(changedTodoIndex + 1),
-      ];
-    });
-  };
+  const [todos, dispatch] = useReducer(reducer, data);
+  const [filterTodos, onFilterSelect] = useFilter(todos);
 
   return (
-    <div className="app">
-      <Header />
-      <div className="d-flex justify-content-end" style={{ marginBottom: 10 }}>
-        <FilterItems onFilterSelect={onFilterSelect} />
+    <TodosDispatch.Provider value={dispatch}>
+      <div className="app">
+        <Header />
+        <div
+          className="d-flex justify-content-end"
+          style={{ marginBottom: 10 }}
+        >
+          <FilterItems onFilterSelect={onFilterSelect} />
+        </div>
+        <div className="wrapper">
+          <TodoList todos={filterTodos} />
+        </div>
+        <AddItemPanel />
       </div>
-      <div className="wrapper">
-        <TodoList
-          todos={filteredTodos}
-          deleteTodoItemWithIndex={deleteTodoItemWithIndex}
-          setIsDoneHandler={setIsDoneHandler}
-        />
-      </div>
-      <AddItemPanel addTodoItem={addTodoItem} />
-    </div>
+    </TodosDispatch.Provider>
   );
 }
 
