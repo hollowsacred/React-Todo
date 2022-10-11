@@ -1,0 +1,17 @@
+@import './reset';
+@import "~bootstrap/scss/bootstrap";
+body {
+  background-color: bisque;
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 700px;
+}
+.wrapper {
+  width: 740px;
+  max-height: 490px;
+  padding: 15px 40px 0 0;
+  overflow: auto;
+}

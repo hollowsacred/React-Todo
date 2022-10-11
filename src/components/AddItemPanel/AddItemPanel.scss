@@ -1,0 +1,27 @@
+.form-add-panel {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap:5px;
+
+  & input {
+    flex: 1 0;
+    padding-left: 10px;
+    padding-right: 20px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+  & button {
+    background-color: #FF9400;
+    padding: 5px;
+    // border-radius: 10px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    &:hover {
+      background-color: lighten(#FF9400,30);
+    }
+
+  }
+}

@@ -1,0 +1,24 @@
+.btns-filter {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  justify-content: center;
+
+  & button {
+    padding: 2px 15px 2px 15px;
+    border-radius: 10px;
+    background-color: #ff9400;
+    transition: all 0.5s ease;
+    &:hover {
+      background-color: lighten(#ff9400, 30);
+    }
+  }
+
+  & .btn_active {
+    background-color: #ff4410;
+
+    &:hover {
+      background-color: lighten(#ff9400, 30);
+    }
+  }
+}

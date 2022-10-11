@@ -1,0 +1,15 @@
+*, body ul {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ #root ul, #root ol {
+    list-style:none;
+} 
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 140px;
+}
